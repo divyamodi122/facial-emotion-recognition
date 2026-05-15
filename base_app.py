@@ -93,6 +93,14 @@ async def predict_emotion(image: UploadFile = File(...)):
     if len(results) == 0:
         return {"status": 404, "message": "No faces detected in the image"}
 
+    # Save prediction results to log file
+    with open("predictions_log.txt", "a") as log:
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log.write(f"\n[{timestamp}] Image: {image.filename}\n")
+        for idx, result in enumerate(results):
+            log.write(f"  Face {idx+1}: {result['emotion']} (confidence: {round(result['confidence'], 4)})\n")
+
     return [
         {
             f"Face_{idx+1}": result['box'],
