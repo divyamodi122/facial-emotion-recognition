@@ -9,7 +9,7 @@ import numpy as np
 
 
 device = 'cpu'
-emotion_model = torch.load('./weights/EmotionNet_b27.pt',
+emotion_model = torch.load('./weights/emotion_detector_v1.pt',
                            map_location=torch.device('cpu'))
 emotion_model.eval()
 idx_to_class = {0: 'Anger', 1: 'Disgust', 2: 'Fear',
